@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta name="author" content="Salva Patinhas">
+    <meta name="keywords" content="Salva Patinhas, Paranaíba, Castração, Projeto Social, salva patinhas">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salva Patinhas Paranaíba | Oficial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #fdfbfb;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --text: #333;
+            --primary: #ff9a9e;
+            --secondary: #a18cd1;
+            --shadow: 0 10px 40px rgba(0,0,0,0.06);
+            --nav-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        body.dark-mode {
+            --bg: #121214;
+            --card-bg: #1e1e22;
+            --text: #e1e1e6;
+            --primary: #ff758c;
+            --nav-bg: rgba(30, 30, 35, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; transition: background 0.3s, color 0.3s; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Nav Responsiva e Suave */
+        nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--nav-bg);
+            backdrop-filter: blur(15px);
+            padding: 12px 35px;
+            border-radius: 100px;
+            display: flex;
+            gap: 25px;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        @media (min-width: 768px) {
+            nav { top: 20px; bottom: auto; }
+        }
+
+        nav a { 
+            text-decoration: none; 
+            color: var(--text); 
+            font-weight: 700; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-size: 0.7rem; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            opacity: 0.8;
+        }
+        nav a:hover { opacity: 1; color: var(--primary); }
+        nav a i { font-size: 1.1rem; margin-bottom: 3px; }
+
+        /* Páginas */
+        .page { display: none; padding-bottom: 120px; animation: slideUp 0.4s ease-out; }
+        .page.active { display: block; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        header {
+            text-align: center;
+            padding: 80px 20px 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 0 0 40px 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        /* Layout Grid */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        @media (min-width: 1024px) {
+            .content-wrapper { grid-template-columns: 260px 1fr 260px; padding: 40px 20px; }
+            header { padding: 110px 20px 70px; }
+        }
+
+        /* Elementos Visuais */
+        .card, .side-ad {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 28px;
+            box-shadow: var(--shadow);
+            height: fit-content;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .side-ad { text-align: center; }
+        @media (min-width: 1024px) { .side-ad { position: sticky; top: 100px; } }
+
+        .btn-action {
+            background: var(--primary);
+            color: white;
+            padding: 14px;
+            border-radius: 18px;
+            border: none;
+            width: 100%;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+        }
+        .btn-action:active { transform: scale(0.98); }
+
+        /* Configurações lateral */
+        #settings-menu {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 100%;
+            max-width: 340px;
+            height: 100%;
+            background: var(--card-bg);
+            z-index: 2000;
+            padding: 40px;
+            transition: 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+            box-shadow: -15px 0 45px rgba(0,0,0,0.1);
+        }
+        #settings-menu.open { right: 0; }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            display: none;
+            z-index: 1500;
+        }
+        .overlay.active { display: block; }
+
+        img { max-width: 100%; height: auto; display: block; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a onclick="showPage('home')"><i class="fas fa-home"></i>Início</a>
+    <a onclick="showPage('acompanhe')"><i class="fas fa-camera"></i>Acompanhe</a>
+    <a onclick="toggleSettings()"><i class="fas fa-cog"></i>Ajustes</a>
+</nav>
+
+<div class="overlay" id="overlay" onclick="toggleSettings()"></div>
+
+<div id="home" class="page active">
+    <header>
+        <h1>Salva Patinhas</h1>
+        <p>Paranaíba - MS</p>
+    </header>
+    
+    <div class="content-wrapper">
+        <aside class="side-ad">
+            <h4>Ajude com PIX</h4>
+            <p style="font-size: 0.8rem; margin: 12px 0; opacity: 0.8;">Cada real ajuda em uma nova castração.</p>
+            <div style="background: rgba(0,0,0,0.04); padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.8rem; border: 1px dashed var(--primary);">CHAVE_PIX_AQUI</div>
+            <button class="btn-action" onclick="alert('Chave copiada para o clipboard!')">Copiar PIX</button>
+        </aside>
+
+        <main class="card">
+            <h2>Nossa Causa</h2>
+            <p style="margin-top: 10px; opacity: 0.9;">Focamos no controle populacional através da castração e na ponte para adoções responsáveis. Não somos um abrigo físico, somos uma rede de proteção.</p>
+            <img src="https://images.unsplash.com/photo-1548199973-03cce0bbc87b?auto=format&fit=crop&w=700&q=80" style="width: 100%; border-radius: 22px; margin-top: 25px;" alt="Causa Animal">
+        </main>
+
+        <aside class="side-ad">
+            <h4>Siga o Projeto</h4>
+            <img src="https://i.ibb.co/bj394tS2/salvapatinhas-paranaiba-brasil-qr.png" 
+                 alt="QR Code Instagram" 
+                 style="width: 85%; margin: 18px auto; border-radius: 12px;">
+            <p style="font-size: 0.75rem; opacity: 0.7;">Aponte a câmera para o QR Code para abrir o Instagram.</p>
+        </aside>
+    </div>
+</div>
+
+<div id="acompanhe" class="page">
+    <header>
+        <h1>Notícias</h1>
+        <p>Atualizações do Projeto</p>
+    </header>
+    <div class="content-wrapper" style="grid-template-columns: 1fr;">
+        <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <i class="fab fa-instagram" style="font-size: 3.5rem; color: #E1306C; margin-bottom: 20px;"></i>
+            <h3>Acompanhe no Instagram</h3>
+            <p style="margin: 15px 0; opacity: 0.8;">Veja os últimos resgates, castrações realizadas e animais que buscam um novo lar diretamente em nossa rede social oficial.</p>
+            <a href="https://www.instagram.com/salvapatinhas.paranaiba.brasil" target="_blank" class="btn-action">ABRIR PERFIL OFICIAL</a>
+        </div>
+    </div>
+</div>
+
+<div id="settings-menu">
+    <h2 style="margin-bottom: 10px;">Ajustes</h2>
+    <p style="font-size: 0.85rem; opacity: 0.6; margin-bottom: 30px;">Personalize sua experiência</p>
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0,0,0,0.03); padding: 15px; border-radius: 15px;">
+        <span style="font-weight: 600;">Modo Noturno</span>
+        <input type="checkbox" id="darkToggle" style="width: 22px; height: 22px; cursor: pointer;">
+    </div>
+    
+    <button class="btn-action" onclick="toggleSettings()" style="margin-top: 40px; background: #555;">Fechar Ajustes</button>
+</div>
+
+<script>
+    // Navegação entre páginas sem mudar a URL e sem bugs
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    // Controle do Menu de Ajustes
+    function toggleSettings() {
+        document.getElementById('settings-menu').classList.toggle('open');
+        document.getElementById('overlay').classList.toggle('active');
+    }
+
+    // Modo Noturno com memória
+    const darkToggle = document.getElementById('darkToggle');
+    darkToggle.addEventListener('change', () => {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', darkToggle.checked ? 'dark' : 'light');
+    });
+
+    if(localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-mode');
+        darkToggle.checked = true;
+    }
+</script>
+
+</body>
+</html>
