@@ -18,7 +18,6 @@
             --nav-bg: rgba(255, 255, 255, 0.85);
         }
 
-
         body.dark-mode {
             --bg: #121214;
             --card-bg: #1e1e22;
@@ -37,7 +36,24 @@
             line-height: 1.6;
         }
 
-        /* Nav Responsiva e Suave */
+        /* --- LOGO AJUSTADO --- */
+        .header-logo {
+            width: 140px; /* Tamanho mobile */
+            height: auto;
+            border-radius: 30px;
+            margin: 20px auto;
+            display: block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        @media (min-width: 1024px) {
+            .header-logo {
+                width: 180px; /* Tamanho PC */
+                margin-top: 40px;
+            }
+        }
+
+        /* Nav Responsiva */
         nav {
             position: fixed;
             bottom: 20px;
@@ -55,7 +71,7 @@
         }
 
         @media (min-width: 768px) {
-            nav { top: 20px; bottom: auto; }
+            nav { top: 20px; bottom: auto; height: fit-content; }
         }
 
         nav a { 
@@ -81,7 +97,7 @@
 
         header {
             text-align: center;
-            padding: 80px 20px 60px;
+            padding: 40px 20px 60px;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             border-radius: 0 0 40px 40px;
@@ -100,10 +116,9 @@
 
         @media (min-width: 1024px) {
             .content-wrapper { grid-template-columns: 260px 1fr 260px; padding: 40px 20px; }
-            header { padding: 110px 20px 70px; }
+            header { padding: 80px 20px 70px; }
         }
 
-        /* Elementos Visuais */
         .card, .side-ad {
             background: var(--card-bg);
             padding: 25px;
@@ -114,7 +129,7 @@
         }
 
         .side-ad { text-align: center; }
-        @media (min-width: 1024px) { .side-ad { position: sticky; top: 100px; } }
+        @media (min-width: 1024px) { .side-ad { position: sticky; top: 110px; } }
 
         .btn-action {
             background: var(--primary);
@@ -128,11 +143,12 @@
             text-decoration: none;
             display: inline-block;
             margin-top: 10px;
-            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.3);
+            box-shadow: 0 4px 15px rgba(100, 196, 196, 0.3);
+            text-align: center;
         }
         .btn-action:active { transform: scale(0.98); }
 
-        /* Configurações lateral */
+        /* Área de Configurações Lateral */
         #settings-menu {
             position: fixed;
             right: -100%;
@@ -174,7 +190,7 @@
 <div id="home" class="page active">
     <header>
         <img src="https://i.ibb.co/RkT64BD2/467112998-2234788550220614-4002234864540174082-n.jpg" 
-                 style="width: 40%; margin: 80px auto; border-radius: 30px;">
+             class="header-logo" alt="Logo Salva Patinhas">
         <h1>Salva Patinhas</h1>
         <p>Paranaíba - MS</p>
     </header>
@@ -183,8 +199,8 @@
         <aside class="side-ad">
             <h4>Ajude com PIX</h4>
             <p style="font-size: 0.8rem; margin: 12px 0; opacity: 0.8;">Cada real ajuda em uma nova castração.</p>
-            <div style="background: rgba(0,0,0,0.04); padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.8rem; border: 1px dashed var(--primary);">061 011 051 99</div>
-            <button class="btn-action" onclick="alert('Chave copiada para o clipboard!')">Copiar PIX (pix passageiro, logo colocaremos outro)</button>
+            <div style="background: rgba(0,0,0,0.04); padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.8rem; border: 1px dashed var(--primary); word-break: break-all;">061 011 051 99</div>
+            <button class="btn-action" onclick="alert('Chave copiada!')">Copiar PIX</button>
         </aside>
 
         <main class="card">
@@ -212,9 +228,10 @@
         <div class="card" style="text-align: center; max-width: 600px; margin: 0 auto;">
             <i class="fab fa-instagram" style="font-size: 3.5rem; color: #E1306C; margin-bottom: 20px;"></i>
             <h3>Acompanhe no Instagram</h3>
-            <p style="margin: 15px 0; opacity: 0.8;">Veja os últimos resgates, castrações realizadas e animais que buscam um novo lar diretamente em nossa rede social oficial.</p>
-            <p style="margin: 15px 0; opacity: 0.8;">LEMBRE-SE, sempre use links do site oficial para entrar no instagram original. existem muitas almas ruins tentando roubar das pessoas usando perfis falsos do salva patinhas.</p>
-
+            <p style="margin: 15px 0; opacity: 0.8;">Veja os últimos resgates e castrações diretamente em nossa rede social oficial.</p>
+            <blockquote style="background: rgba(255,0,0,0.05); padding: 10px; border-radius: 10px; font-size: 0.85rem; border-left: 4px solid #ff4444; margin-bottom: 20px;">
+                Cuidado com perfis falsos! Use sempre os links oficiais deste site.
+            </blockquote>
             <a href="https://www.instagram.com/salvapatinhas.paranaiba.brasil" target="_blank" class="btn-action">ABRIR PERFIL OFICIAL</a>
         </div>
     </div>
@@ -233,20 +250,17 @@
 </div>
 
 <script>
-    // Navegação entre páginas sem mudar a URL e sem bugs
     function showPage(pageId) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(pageId).classList.add('active');
         window.scrollTo({top: 0, behavior: 'smooth'});
     }
 
-    // Controle do Menu de Ajustes
     function toggleSettings() {
         document.getElementById('settings-menu').classList.toggle('open');
         document.getElementById('overlay').classList.toggle('active');
     }
 
-    // Modo Noturno com memória
     const darkToggle = document.getElementById('darkToggle');
     darkToggle.addEventListener('change', () => {
         document.body.classList.toggle('dark-mode');
@@ -260,5 +274,4 @@
 </script>
 
 </body>
-
 </html>
